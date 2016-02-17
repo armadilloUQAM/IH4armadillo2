@@ -6,6 +6,19 @@ This script will help programmers to prepare all program files  needed in NetBea
 
 ## Code Example
 
+P|EMBOSS chips||[/usr/bin/docker]/[docker]/["C:\Program Files\Git\bin\bash.exe" --login -i "C:\Program Files\Docker Toolbox\start.sh"]|./results/EMBOSS/chips/|Codon usage statistics Nucleotide sequence(s) filename and optional format, or reference (input USA)|http://emboss.sourceforge.net/apps/cvs/emboss/apps/chips.html|NGS: EMBOSS<br/>
+D|jego/emboss|chips --auto|/data<br/>
+I|FastaFile|2|Sequence||--seqall|.fasta<br/>
+O|ChipsFile|ChipsFile|-outfile|.chips<br/>
+M|default<br/>
+M|Advanced Options|Standard qualifiers<br/>
+T|Standard qualifiers<br/>
+C|-nosum||box|||Not Sum codons over all sequences||sum||<br/>
+C|-sum||box|||Sum codons over all sequences||nosum||<br/>
+
+
+## Helper
+
 Path to Armadillo directory -d [PATH/TO/ARMADILLO] (needed if -t is not used)<br/>
 File -f [PATH/FILENAME] (needed)<br/>
 Set Columns File separator -s "|" <br/>
