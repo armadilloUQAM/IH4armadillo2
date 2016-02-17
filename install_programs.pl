@@ -11,6 +11,7 @@ use Data::Dumper;
 # Ajouter FILES et ajouter le chargement des fichiers
 # Add activation by default $initiales."_ActivatedByDefault"
 # Add list option(s)
+# Choose if the connector be be the only one that can be added to the box, or if you need just one connector to this connector number
 
 # ======================================================================
 # Structured File options
@@ -97,6 +98,8 @@ my ($file,$test,$author,$arg,$help,$sepf,$dir) = &getArgv(\@ARGV);
 if ($help !=1){
     
     ($pTAEdit,$pTAProg,$pTAProp,$pTABiol) = &setOutputPath($test,$dir);
+print ">".$pTAEdit."<\n";
+
     
     print "#################################################################\n".
           "# Program $0 starts\n".
@@ -200,11 +203,10 @@ sub getArgv {
     # Armadillo dir and test zone
     if ($dir eq "" && $test==0) {
         $help = 1;
-    } elsif ($dir ne "" && $test!=0) {
-        $dir =~ s/[\/,\\]$//;
+    } elsif ($dir ne "") {
+        $dir =~ s/[\/,\\]$// if ($test==0);
+        $help = 1  if ($test==1);
     }
-    
-
     
     # Test help
     if ($help == 1) {
@@ -1298,6 +1300,10 @@ sub createJavaEditorFile {
     #Local Variables will be used for functions USP and ennabled
 
     my $file=">".$pTAEdit."".$programmeName.".java";
+    
+    
+    print ">> ".$file." <<\n";
+    
     open (my $out , $file) or die $!;
     print $out  "/**\n".
                 "* To change this license header, choose License Headers in Project Properties.\n".
