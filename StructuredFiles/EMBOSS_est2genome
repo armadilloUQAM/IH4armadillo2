@@ -1,0 +1,29 @@
+P|EMBOSS est2genome||[/usr/bin/docker]/[docker]/["C:\Program Files\Git\bin\bash.exe" --login -i "C:\Program Files\Docker Toolbox\start.sh"]|./results/EMBOSS/est2genome/|Align EST sequences to genomic DNA sequence|http://emboss.sourceforge.net/apps/cvs/emboss/apps/est2genome.html|NGS: EMBOSS
+D|jego/emboss|est2genome --auto|/data
+I|FastaFile|2|Sequence||-estsequence|.fasta
+I|EmblFile|2|||-estsequence|.embl
+I|GenomeFile|3|Genome||-genomesequence|
+O|Est2genomeFile|Outfile|-outfile|.est2genome
+M|default
+M|Advanced Options|Standard qualifiers
+T|Standard qualifiers
+C|-match||box|int|1<><><>1|Score for matching two bases||||
+C|-mismatch||box|int|1<><><>1|Cost for mismatching two bases||||
+C|-gappenalty||box|int|2<><><>1|Cost for deleting a single base in either sequence, excluding introns|||
+C|-intronpenalty||box|int|40<><><>1|Cost for an intron, independent of length.|||
+C|-splicepenalty||box|int|20<><><>1|Cost for an intron, independent of length and starting/ending on donor-acceptor sites|||
+C|-minscore||box|int|30<><><>1|Exclude alignments with scores below this threshold score.|||
+C|-reverse||box|int|0<>0<>1<>1|Reverse the orientation of the EST sequence||||
+C|-usesplice||box|int|1<>0<>1<>1|Use donor and acceptor splice sites. If you want to ignore donor-acceptor sites then set this to be false.||||
+C|-mode||box|text|both|This determines the comparison mode. The default value is 'both', in which case both strands of the est are compared assuming a forward gene direction (ie GT/AG splice sites), and the best comparison redone assuming a reversed (CT/AC) gene splicing direction. The other allowed modes are 'forward', when just the forward strand is searched, and 'reverse', ditto for the reverse strand.|both (Both strands), forward (Forward strand only), reverse (Reverse strand only)|||
+
+C|-best||box|int|1<>0<>1<>1|You can print out all comparisons instead of just the best one by setting this to be false.||||
+C|-best||box|int|1<>0<>1<>1|You can print out all comparisons instead of just the best one by setting this to be false.||||
+
+
+-[no]best 	boolean 	 	Boolean value Yes/No 	Yes
+-space 	float 	For linear-space recursion. If product of sequence lengths divided by 4 exceeds this then a divide-and-conquer strategy is used to control the memory requirements. In this way very long sequences can be aligned. If you have a machine with plenty of memory you can raise this parameter (but do not exceed the machine's physical RAM) 	Any numeric value 	10.0
+-shuffle 	integer 	Shuffle 	Any integer value 	0
+-seed 	integer 	Random number seed 	Any integer value 	20825
+-align 	boolean 	Show the alignment. The alignment includes the first and last 5 bases of each intron, together with the intron width. The direction of splicing is indicated by angle brackets (forward or reverse) or ???? (unknown). 	Boolean value Yes/No 	No
+-width 	integer 	Alignment width 	Any integer value 	50

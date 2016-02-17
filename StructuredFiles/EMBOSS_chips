@@ -1,0 +1,9 @@
+P|EMBOSS chips||[/usr/bin/docker]/[docker]/["C:\Program Files\Git\bin\bash.exe" --login -i "C:\Program Files\Docker Toolbox\start.sh"]|./results/EMBOSS/chips/|Codon usage statistics Nucleotide sequence(s) filename and optional format, or reference (input USA)|http://emboss.sourceforge.net/apps/cvs/emboss/apps/chips.html|NGS: EMBOSS
+D|jego/emboss|chips --auto|/data
+I|FastaFile|2|Sequence||--seqall|.fasta
+O|ChipsFile|ChipsFile|-outfile|.chips
+M|default
+M|Advanced Options|Standard qualifiers
+T|Standard qualifiers
+C|-nosum||box|||Not Sum codons over all sequences||sum||
+C|-sum||box|||Sum codons over all sequences||nosum||

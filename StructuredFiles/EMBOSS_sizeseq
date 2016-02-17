@@ -1,0 +1,11 @@
+P|EMBOSS sizeseq||[/usr/bin/docker]/[docker]/["C:\Program Files\Git\bin\bash.exe" --login -i "C:\Program Files\Docker Toolbox\start.sh"]|./results/sizeseq/|sizeseq reads a set of sequences and sorts them by length. By default the sort is in ascending order.|http://emboss.sourceforge.net/apps/cvs/emboss/apps/sizeseq.html|NGS: EMBOSS
+D|jego/emboss|sizeseq --auto|/data
+I|FastaFile|2|Sequence||-sequences|.fasta
+O|FastaFile|Sequence Sort|-outseq|.fasta
+M|default
+M|Advanced Options|Standard qualifiers
+T|Standard qualifiers
+C|-descending||box|int|0<>0<>1<>1|By default the shortest sequence is given first.|Longest first|||true
+
+#(Parameter 1) 	seqset 	Sequence set filename and optional format, or reference (input USA) 	Readable set of sequences 	Required	Types: gff (gff3), gff2, embl (em), genbank (gb, refseq), ddbj, refseqp, pir (nbrf), swissprot (swiss, sw), dasgff and debug. 
+#C|-osformat2;-osformat_outseq 	string 	Output seq format 	Any string 	 Types: embl, genbank, gff, pir, swiss, dasgff, debug, listfile, dbmotif, diffseq, excel, feattable, motif, nametable, regions, seqtable, simple, srs, table, tagseq. 

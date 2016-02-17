@@ -1,0 +1,13 @@
+P|EMBOSS einverted||[/usr/bin/docker]/[docker]/["C:\Program Files\Git\bin\bash.exe" --login -i "C:\Program Files\Docker Toolbox\start.sh"]|./results/EMBOSS/einverted/|Finds DNA inverted repeats|http://emboss.sourceforge.net/apps/cvs/emboss/apps/einverted.html|NGS: EMBOSS
+D|jego/emboss|einverted --auto|/data
+I|FastaFile|2|Sequence||-sequence|.fasta
+O|EinvertedFile|Outfile|-outfile|.einverted
+O|FastaFile|OutSeq|-outseq|.fasta
+M|default
+M|Advanced Options|Standard qualifiers
+T|Standard qualifiers
+C|-gap||box|int|12<>0<><>1|Gap penalty|||
+C|-threshold||box|int|50<>0<><>10|Minimum score threshold||||
+C|-match||box|int|3<>0<><>1|Match score||||
+C|-mismatch||box|int|-4<><>0<>1|Mismatch score||||
+C|-maxrepeat||box|int|2000<>0<><>100|Maximum separation between the start of repeat and the end of the inverted repeat.||||

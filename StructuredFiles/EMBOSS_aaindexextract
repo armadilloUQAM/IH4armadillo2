@@ -1,0 +1,3 @@
+P|EMBOSS aaindexextract||[/usr/bin/docker]/[docker]/["C:\Program Files\Git\bin\bash.exe" --login -i "C:\Program Files\Docker Toolbox\start.sh"]|./results/EMBOSS/data/|1|Extract amino acid property data from AAINDEX|NGS:EMBOSS|aaindexextract extracts amino acid property data from the AAINDEX database (see references 1, 2 and 3). One file for every amino acid property is created in the EMBOSS data directory data/AAINDEX. Each file corresponds to a single entry in the file aindex1 of the AAINDEX database. Download them here ftp://ftp.genome.jp/pub/db/community/aaindex/ .|http://emboss.open-bio.org/rel/rel6/apps/aaindexextract.html|./results/EMBOSS/data/
+D|jego/emboss|aaindexextract --auto -r|/data|||/usr/share/EMBOSS/data/
+I|FileFile|true|sequencesToValidate||-infile

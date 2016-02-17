@@ -1,0 +1,9 @@
+P|EMBOSS banana||[/usr/bin/docker]/[docker]/["C:\Program Files\Git\bin\bash.exe" --login -i "C:\Program Files\Docker Toolbox\start.sh"]|./results/EMBOSS/banana/|Bending and curvature plot in B-DNA|http://emboss.sourceforge.net/apps/cvs/emboss/apps/banana.html|NGS: EMBOSS
+D|jego/emboss|banana --auto|/data
+I|FastaFile|2|Sequence||-sequence|.fasta
+O|BananaFile|BananaFile|-outfile|.profile
+M|default
+M|Advanced Options|Standard qualifiers
+T|Standard qualifiers
+C|-graph||box|list|ps<>hpgl<>hp7470<>hp7580<>meta<>cps<>x11<>tek<>tekt<>none<>data<>xterm<>png<>gif<>pdf<>svg|EMBOSS_GRAPHICS value|Graph type : ps, hpgl, hp7470, hp7580, meta, cps, x11, tek, tekt, none, data, xterm, png, gif, pdf, svg|||
+C|-residuesperline||box|int|50<>0<><>10|Number of residues to be displayed on each line||||

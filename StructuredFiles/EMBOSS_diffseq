@@ -1,0 +1,10 @@
+P|EMBOSS diffseq||[/usr/bin/docker]/[docker]/["C:\Program Files\Git\bin\bash.exe" --login -i "C:\Program Files\Docker Toolbox\start.sh"]|./results/EMBOSS/diffseq/|Find differences between nearly identical sequences|http://emboss.sourceforge.net/apps/cvs/emboss/apps/diffseq.html|NGS: EMBOSS
+D|jego/emboss|diffseq --auto|/data
+I|FastaFile|2|Sequence||-asequence|.fasta
+I|FastaFile|3|Sequence||-bsequence|.fasta
+O|FastaFile|Sequence Sort|-outfile|.diffseq
+M|default
+M|Advanced Options|Standard qualifiers
+T|Standard qualifiers
+C|-wordsize||box|int|10<>2<><>1|The similar regions between the two sequences are found by creating a hash table of 'wordsize'd subsequences. 10 is a reasonable default. Making this value larger (20?) may speed up the program slightly, but will mean that any two differences within 'wordsize' of each other will be grouped as a single region of difference. This value may be made smaller (4?) to improve the resolution of nearby differences, but the program will go much slower.||||
+C|-globaldifferences||box|int|0<>0<>1<>1|Normally this program will find regions of identity that are the length of the specified word-size or greater and will then report the regions of difference between these matching regions. This works well and is what most people want if they are working with long overlapping nucleic acid sequences. You are usually not interested in the non-overlapping ends of these sequences. If you have protein sequences or short RNA sequences however, you will be interested in differences at the very ends . It this option is set to be true then the differences at the ends will also be reported.||||
