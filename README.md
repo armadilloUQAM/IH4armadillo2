@@ -4,19 +4,15 @@
 
 This script will help programmers to prepare all program files  needed in NetBeans IDE.
 
-## Code Example
+## Motivation
 
-```
-P|EMBOSS chips||[/usr/bin/docker]/[docker]/["C:\Program Files\Git\bin\bash.exe" --login -i "C:\Program Files\Docker Toolbox\start.sh"]|./results/EMBOSS/chips/|Codon usage statistics Nucleotide sequence(s) filename and optional format, or reference (input USA)|http://emboss.sourceforge.net/apps/cvs/emboss/apps/chips.html|NGS: EMBOSS
-D|jego/emboss|chips --auto|/data
-I|FastaFile|2|Sequence||--seqall|.fasta
-O|ChipsFile|ChipsFile|-outfile|.chips
-M|default
-M|Advanced Options|Standard qualifiers
-T|Standard qualifiers
-C|-nosum||box|||Not Sum codons over all sequences||sum||
-C|-sum||box|||Sum codons over all sequences||nosum||
-```
+After several programs added by hand in Netbeans IDE.<br/>
+This scrip was born.<br/>
+
+## Installation
+
+* Need perl.\
+* Doesn't need specific installation
 
 ## Helper
 ```
@@ -36,16 +32,7 @@ Constructions options -c [all,e,j,f] (default all)
 	perl install_programs.pl -f EMBOSS_sizeseq -t -a John Doe -c ej -s |
 ```
 
-## Motivation
-
-After several programs added by hand in netbeans ide, it tools to much time. This scrip was born.<br/>
-
-## Installation
-
-* Need perl.\
-* Doesn't need specific installation
-
-## Tests
+## To call
 
 WARNING Not completely Idiot Proof. So, test it in test zone before ;)
 * Test zone
@@ -57,10 +44,19 @@ $ perl install_programs.pl -f ../struturedfiles/EMBOSS_sizeseq -t -a John Doe -c
 $ perl install_programs.pl -f /PATH/TO/STRUCTURED/FILES/EMBOSS_sizeseq -d ../PATH/TO/armadillo -a John Doe -c ej -s |
 ```
 
+## Structured file Example
 
-## License
-
-MIT
+```
+P|EMBOSS chips||[/usr/bin/docker]/[docker]/["C:\Program Files\Git\bin\bash.exe" --login -i "C:\Program Files\Docker Toolbox\start.sh"]|./results/EMBOSS/chips/|Codon usage statistics Nucleotide sequence(s) filename and optional format, or reference (input USA)|http://emboss.sourceforge.net/apps/cvs/emboss/apps/chips.html|NGS: EMBOSS
+D|jego/emboss|chips --auto|/data
+I|FastaFile|2|Sequence||--seqall|.fasta
+O|ChipsFile|ChipsFile|-outfile|.chips
+M|default
+M|Advanced Options|Standard qualifiers
+T|Standard qualifiers
+C|-nosum||box|||Not Sum codons over all sequences||sum||
+C|-sum||box|||Sum codons over all sequences||nosum||
+```
 
 ## How to structure a file
 
@@ -166,3 +162,7 @@ dirRep   (select a directory) /path/to/directory<br/>
 
 Ex :<br/>
 C|--fristCommand|-f|box|bool|0|My First command|Label|*Opposite To*|Parents of|selected by default (true|(falseORempty)) <br/>
+
+## License
+
+MIT
