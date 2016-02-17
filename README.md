@@ -6,10 +6,10 @@ This script will help programmers to prepare all program files  needed in NetBea
 
 ## Code Example
 
-Path to Armadillo directory -d [PATH/TO/ARMADILLO] (needed if -t is not used) \
-File -f [PATH/FILENAME] (needed) \
-Set Columns File separator -s "|"  \
-(default is | the pipe, don't forget the quote if it's necessary)  \
+Path to Armadillo directory -d [PATH/TO/ARMADILLO] (needed if -t is not used)
+File -f [PATH/FILENAME] (needed)
+Set Columns File separator -s "|" 
+(default is | the pipe, don't forget the quote if it's necessary) 
 Constructions options -c [all,e,j,f] (default all)  \
 	e   for Editor files,  \
 	j   for Program file,  \
