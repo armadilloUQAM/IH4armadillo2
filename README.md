@@ -82,7 +82,9 @@ P   |Program name|NormalExitValue|[Linux<>Path]/[Mac<>Path]/[Windows<>Path]|Arma
 11|Save output Files from outputPath to dest<>dest<>(ect.) => * Not realy used<br/>
 
 #### Docker informations
-D   |docker image name|Command to execute in the container|Shared folder path in docker|docker Name (if not here will be the docker name link)|Remarks|Copy Dockers Files Directories source<>source<>(etc.) to sharedfolder<br/>
+```
+D   |docker image name|Command to execute in the container|Shared folder path in docker|docker Name (if not here will be the docker name link)|Remarks|Copy Dockers Files Directories source<>source<>(etc.) to sharedfolder
+```
 0|D<br/>
 1|docker image name => * Add The docker image like needed by docker (*)<br/>
 2|Command to execute in the container => * Add the command to execute in docker (*)<br/>
@@ -92,7 +94,9 @@ D   |docker image name|Command to execute in the container|Shared folder path in
 6|Copy Dockers Files Directories source<>source<>(etc.) to sharedfolder  => * Usefull when you want to move data references, or reference genome modified by a docker program<br/>
 
 ##### Input Options (*)
-I   |Input type|[true,2,3,4]|Connector Name|OneConnectorOnlyFor(OR)SolelyConnectors|Command if needeed|Extention<br/>
+```
+I   |Input type|[true,2,3,4]|Connector Name|OneConnectorOnlyFor(OR)SolelyConnectors|Command if needeed|Extention
+```
 Choose Input type between all types from ./src/biologic : Alignment, Ancestor, BamFile, Biologic, Blast, BlastDB, BlastHit, DataSet, FastaFile, FastqFile, Genome, GenomeFile, HTML, ImageFile, InfoAlignment, InfoMultipleSequences, InfoSequence, Input, ListSequence, Matrix, Model, MultipleAlignments, MultipleSequences, MultipleTrees, Outgroup, Output, OutputText, Phylip, Phylip_Distance, Phylip_Seqboot, PositionToSequence, ProteinAlignment, Results, RootedTree, SamFile, Sample, Sequence, SOLIDFile, Text, TextFile, Tree, Unknown, UnrootedTree, Workflows<br/>
 (update in 2015/12/01)<br/>
 
@@ -105,7 +109,9 @@ Choose Input type between all types from ./src/biologic : Alignment, Ancestor, B
 6|Extention => * Add the file extention<br/>
 
 ##### Output Options
-O   |Output type |Connector Name|Command if needeed|Extention  (see if several extention options add a list)<br/>
+```
+O   |Output type |Connector Name|Command if needeed|Extention  (see if several extention options add a list)
+```
 
 0|O<br/>
 1|Output type<br/>
@@ -114,29 +120,34 @@ O   |Output type |Connector Name|Command if needeed|Extention  (see if several e
 4|Extention  (see if several extention options add a list separated by <>)<br/>
 
 ##### Menu Options (*)
-M   |Menu option |Tab/Panel linked (enabled or disabled if selected)<br/>
+```
+M   |Menu option |Tab/Panel linked (enabled or disabled if selected)
+```
 0|I<br/>
 1|Menu option<br/>
 2|Tab/Panel linked (enabled or disabled if selected)<br/>
 
 ##### Title Name (*)
-0   |1<br/>
-T   |Name<br/>
-
+```
+T   |Name
+```
 0|I<br/>
 1|Name<br/>
 
 ##### Subtitle Name
-0   |1<br/>
-S   |Name<br/>
+```
+S   |Name
+```
 
 0|I<br/>
 1|Name<br/>
 Will be added as a tab for Title Name<br/>
 
 ##### Command options (*)
+```
 C   |Command name|shortName  |( r )button or box |*list*|value for *list*|Help |Label|*Opposite To*|Parents of|selected by default (true|(falseORempty))
-0|C<br/>
+0|C
+```
 1|Command name => * Add the command name generaly starts with -- or -<br/>
 2|shortName => * Add shortName for the command name (could be empty)<br/>
 3|( r )button or box => * Choose between : box (prefer this one) or rbutton (radiobutton) or button<br/>
