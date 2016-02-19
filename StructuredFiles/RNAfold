@@ -1,0 +1,38 @@
+P|RNAfold|0|[/usr/bin/docker]/[docker]/["C:\Program Files\Git\bin\bash.exe" --login -i "C:\Program Files\Docker Toolbox\start.sh"]|NGS: Vienna||./results/RNAfold/|||Calculate minimum free energy secondary structures and partition function of RNAs||
+D|jego/vienna|RNAfold|/data
+I|FastaFile|2|Sequence||-i|.fasta
+O|FastaFile|SequencesFolded|-o|.fold
+M|Default Options
+M|Advanced Options|Advanced Options
+T|Advanced Options
+S|General
+C|--noPS||box|||Do not produce postscript drawing of the mfe structure.||
+C|--layout-type=|-t|box|bool|1|Choose the layout algorithm. Simple radial layout if 0, or naview if 1||
+C|--noconv||box|||Do not automatically substitude nucleotide T with U||
+S|Struct
+C|--maxBPspan=||box|int|1|Set the maximum base pair span|||
+C|--constraint|-C|box|||Calculate structures subject to constraints.||
+C|--canonicalBPonly||box|||Remove non-canonical base pairs from the structure constraint||
+C|--enforceConstraint||box|||Enforce base pairs given by round brackets in structure constraint||
+C|--shape=||box|dirFile||Use SHAPE reactivity data to guide structure predictions|||
+C|--shapeMethod=|-k|box|txt||Specify the method how to convert SHAPE reactivity data to pseudo energy contributions|||
+C|--shapeConversion=||box|list|O<>C<>S<>L<>M|Specify the method used to convert SHAPE reactivities to pairing probabilities when using the SHAPE approach of Zarringhalam et al.||
+C|--motif=||box|text|SEQUENCE,STRUCTURE,ENERGY|Specify stabilizing effect of ligand binding to a particular sequence/structure motif.||
+S|Algo
+C|--partfunc|-p|box|int|1|Calculate the partition function and base pairing probability matrix.||
+C|--MEA||box|int|1|Calculate an MEA (maximum expected accuracy) structure, where the expected accuracy is computed from the pair probabilities: each base pair (i,j) gets a score 2*gamma*p_ij and the score of an unpaired base is given by the probability of not forming a pair.||
+C|--pfScale=|-S|box|dou|1.07<>1.0<>1.2<>0.1|In the calculation of the pf use scale*mfe as an estimate for the ensemble free energy (used to avoid overflows).||
+C|--circ|-c|box|||Assume a circular (instead of linear) RNA molecule.||
+C|--ImFeelingLucky||box|||Return exactly one stochastically backtracked structure||
+C|--bppmThreshold=||box|text|1e-5|Set the threshold for base pair probabilities included in the postscript output||
+C|--gquad|-g|box|||Incoorporate G-Quadruplex formation into the structure prediction algorithm||
+S|Model
+C|--temp|-T|box|dou|37.0<>-200.0<>250<>10|Rescale energy parameters to a temperature of temp C.|Default is 37C. DOUBLE|
+C|--noTetra|-4|box|||Do not include special tabulated stabilizing energies for tri-, tetra- and hexaloop hairpins. Mostly for testing.||
+C|--dangles|-d|box|int|2|How to treat dangling end energies for bases adjacent to helices in free ends and multi-loops||
+C|--noLP||box|||Produce structures without lonely pairs (helices of length 1).||
+C|--noGU||box|||Do not allow GU pairs||
+C|--noClosingGU||box|||Do not allow GU pairs at the end of helices||
+C|--paramFile=|-P|box|dirFile|paramfile|Read energy parameters from paramfile, instead of using the default parameter set.|||
+C|--energyModel=|-e|box|int|0|Rarely used option to fold sequences from the artificial ABCD... alphabet, where A pairs B, C−D etc. Use the energy parameters for GC (−e 1) or AU (−e 2) pairs.|||
+C|--betaScale=|-e|box|dou|1.0|Set the scaling of the Boltzmann factors|||

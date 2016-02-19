@@ -11,7 +11,9 @@ use Data::Dumper;
 # Ajouter FILES et ajouter le chargement des fichiers
 # Add activation by default $initiales."_ActivatedByDefault"
 # Add list option(s)
-# Choose if the connector be be the only one that can be added to the box, or if you need just one connector to this connector number
+# Add test on OneConnectorOnlyFor
+# Command : 11 "Need also" to activate by default other options
+# Add version program <Version><Version_MacOSX><Version_Linux>
 
 # ======================================================================
 # Structured File options
@@ -33,9 +35,10 @@ D   |docker image name|Command to execute in the container|Shared folder path in
 
 # Input Options (*)
 0   |1         |2           |3             |4                                           |5                 |6
-I   |Input type|[true,2,3,4]|Connector Name|OneConnectorOnlyFor || (OR) SolelyConnectors|Command if needeed|Extention
+I   |Input type|[true,2,3,4]|Connector Name|OneConnectorOnlyFor (OR) SolelyConnectors|Command if needeed|Extention
 Choose Input type between all types from ./src/biologic : Alignment, Ancestor, BamFile, Biologic, Blast, BlastDB, BlastHit, DataSet, FastaFile, FastqFile, Genome, GenomeFile, HTML, ImageFile, InfoAlignment, InfoMultipleSequences, InfoSequence, Input, ListSequence, Matrix, Model, MultipleAlignments, MultipleSequences, MultipleTrees, Outgroup, Output, OutputText, Phylip, Phylip_Distance, Phylip_Seqboot, PositionToSequence, ProteinAlignment, Results, RootedTree, SamFile, Sample, Sequence, SOLIDFile, Text, TextFile, Tree, Unknown, UnrootedTree, Workflows
 (update in 2015/12/01)
+OneConnectorOnlyFor: Choose if the connector be be the only one that can be added to the box, or if you need just one connector to this connector number
 
 # Output Options
 0   |1           |2             |3                 |4
@@ -98,8 +101,6 @@ my ($file,$test,$author,$arg,$help,$sepf,$dir) = &getArgv(\@ARGV);
 if ($help !=1){
     
     ($pTAEdit,$pTAProg,$pTAProp,$pTABiol) = &setOutputPath($test,$dir);
-print ">".$pTAEdit."<\n";
-
     
     print "#################################################################\n".
           "# Program $0 starts\n".
@@ -201,19 +202,17 @@ sub getArgv {
     }
     
     # Armadillo dir and test zone
-    if ($dir eq "" && $test==0) {
+    if ($dir eq "") {
         $help = 1;
-    } elsif ($dir ne "") {
-        $dir =~ s/[\/,\\]$// if ($test==0);
-        $help = 1  if ($test==1);
     }
+    $dir =~ s/[\/,\\]$//;
     
     # Test help
     if ($help == 1) {
         print   "\n\n########".
                 "\n# HELP #".
                 "\n########".
-                "\n# Path to Armadillo -d [PATH/TO/ARMADILLO] (needed if -t is not used)".
+                "\n# Path to Armadillo -d [PATH/TO/ARMADILLO]".
                 "\n# File -f [PATH/FILENAME] (needed)".
                 "\n# Set Columns File separator -s \"|\"".
                 "\n(default is | the pipe, don't forget the quote if it's necessary)".
@@ -382,7 +381,8 @@ sub extractPgrmOrganisation {
             
             ($val)=$line=~/^\w(.*)$/i;
             $val =~ s/^\Q$sepf\E//;
-            $val =~ s/\Q$sepf\E\Q$sepf\E/\Q$sepf\E\.\Q$sepf\E/g;
+            $val =~ s/\Q$sepf\E\Q$sepf\E/\Q$sepf\E\.$sepf/g;
+            $val =~ s/\Q$sepf\E$/\Q$sepf\E\./;
             @tab = split (/\Q$sepf\E/,$val) ;
             $tab[0]=~ s/ /_/g if ($line=~/^[P,D,I,O,M,T,S].*$/);
             foreach my $v (@tab) {
@@ -549,8 +549,18 @@ sub extractPgrmOrganisation {
             } else {
                 $initiales = $initials{$t."_".$s};
             }
-            $initiales = $initiales."_".$tab[0]  if ($prefix ==1);
-            $initiales = $initiales."__".$tab[0] if ($prefix ==2);
+            
+            for (my $e=0;$e<2;$e++) {
+                $tab[$e]=~s/=/_EQUALSYMBOL/;
+            }
+            
+#            if ($tab[1]eq"") {
+                $initiales = $initiales."_".$tab[0]  if ($prefix ==1);
+                $initiales = $initiales."__".$tab[0] if ($prefix ==2);
+#            } else {
+#                $initiales = $initiales."_".$tab[1]  if ($prefix ==1);
+#                $initiales = $initiales."__".$tab[1] if ($prefix ==2);
+#            }
             
             if ($tab[2]eq"box") {
                 $initiales = $initiales."_Box";
@@ -568,12 +578,18 @@ sub extractPgrmOrganisation {
             } else {
                 $initials{$t."_".$s."_".$c} = $initiales;
             }
-                
+            
+            my $prefixVal="-";
+            $prefixVal="--" if ($prefix ==2);
+            
             $structPgrm{$t."_".$s."_".$c} = $initiales;
             if ($tab[1] ne "") {
-                $structPgrm{$initiales} = $tab[0]."/".$tab[1] ;
+                $structPgrm{$initiales} = $prefixVal."".$tab[0]."/".$tab[1]  ;
             } else {
-                $structPgrm{$initiales} = $tab[0];
+                $structPgrm{$initiales} = $prefixVal."".$tab[0];
+            }
+            if ($structPgrm{$initiales}=~/_EQUALSYMBOL/){
+                $structPgrm{$initiales}=~s/_EQUALSYMBOL/=/;
             }
             # Prepare initials informations END
             
@@ -603,6 +619,11 @@ sub extractPgrmOrganisation {
                 }
                 if ($tab[4]ne"" && $tab[3]ne""){
                     $structPgrm{$string} = $tab[4];
+                    $h_bv{$initiales}=$string;
+                }
+                if ($tab[4]eq"" && $string=~/_Text/){
+                    print "\nThe commands ".$tab[0]." don't have a default Text. \"...\" will be added\n";
+                    $structPgrm{$string} = "...";
                     $h_bv{$initiales}=$string;
                 }
             } else {
@@ -1084,21 +1105,17 @@ sub extractPgrmOrganisation {
     sub testPgrmSaved {
         my $s = $_[0];
         
-        my $bool = 1;
         # number of box Inputs test
         if (exists $s->{"0_nbInputs"}) {
             my $val = $s->{"0_nbInputs"};
             if ($val!~/\d/ || $val < 1 || $val > 3) {
                 print "\n\t\"WARNING\"".
                       "\n\tThe number of inputs is not a number. It will be set as the default value 1 or at the max value from the imput\n";
-                $bool = 0;
+                $s->{"0_nbInputs"} = 1;
             }
         } else {
             print "\n\t\"WARNING\"".
                   "\n\tThe number of inputs is not set. The number of inputs for the box will be the default value \"1\" or setted from imputs value.\n";
-            $bool = 0;
-        }
-        if ($bool == 0) {
             $s->{"0_nbInputs"} = 1;
         }
         
@@ -1118,6 +1135,13 @@ sub extractPgrmOrganisation {
                 print "\n\t\"WARNING\"".
                       "\n\tThe web path didn't respect the template. Defaults values will be used.\n";
             }
+        }
+
+        # Help
+        if (!exists $s->{"0_help"}) {
+            print "\n\t\"WARNING\"".
+                  "\n\tHelp Program doesn't exist. A defaultValue \".\" will be used.\n";
+            $s->{"0_help"} = ".";
         }
 
         return;
@@ -1300,9 +1324,6 @@ sub createJavaEditorFile {
     #Local Variables will be used for functions USP and ennabled
 
     my $file=">".$pTAEdit."".$programmeName.".java";
-    
-    
-    print ">> ".$file." <<\n";
     
     open (my $out , $file) or die $!;
     print $out  "/**\n".
@@ -1895,28 +1916,28 @@ sub createJavaEditorFile {
             
             my %h_val =(
                 "Byt0" => 1,    #init
-                "Byt1" => -128, #min
-                "Byt2" => 127,  #max
+                "Byt1" => "null", #min
+                "Byt2" => "null",  #max
                 "Byt3" => 1,    #jump
                 "Int0" => 1,
-                "Int1" => -2147483648,
-                "Int2" => 2147483647,
+                "Int1" => "null",
+                "Int2" => "null",
                 "Int3" => 1,
                 "Lon0" => 1,
-                "Lon1" => -9223372036854775808,
-                "Lon2" => 9223372036854775807,
+                "Lon1" => "null",
+                "Lon2" => "null",
                 "Lon3" => 1,
                 "Sho0" => 1,
-                "Sho1" => -32768,
-                "Sho2" => 32767,
+                "Sho1" => "null",
+                "Sho2" => "null",
                 "Sho3" => 1,
                 "Flo0" => "1.0f",
-                "Flo1" => "-1f/0f",
-                "Flo2" => "1f/0f",
+                "Flo1" => "null",
+                "Flo2" => "null",
                 "Flo3" => "1.0f",
                 "Dou0" => "1.0d",
-                "Dou1" => "-1d/0d",
-                "Dou2" => "1d/0d",
+                "Dou1" => "null",
+                "Dou2" => "null",
                 "Dou3" => "1.0d",
                 "Boo0" => 0,
                 "Boo1" => 0,
@@ -1926,8 +1947,8 @@ sub createJavaEditorFile {
             
             my %h_val_ef =(
                 "0" => "1.0",
-                "1" => "-Infinity",
-                "2" => "Infinity",
+                "1" => "null",
+                "2" => "null",
                 "3" => "1.0"
             );
             
@@ -1956,7 +1977,13 @@ sub createJavaEditorFile {
             
             if (exists $h_t_j{$t}) {
                 if ($or eq "ef") {
-                    return "initial=\"".$vals[0]."\" maximum=\"".$vals[2]."\" minimum=\"".$vals[1]."\" numberType=\"java.lang.".$h_t_j{$t}."\" stepSize=\"".$vals[3]."\"";
+                    my $s = "initial=\"".$vals[0]."\"";
+                    $s = $s." maximum=\"".$vals[2]."\"" if ($vals[2] ne "null");
+                    $s = $s." minimum=\"".$vals[1]."\"" if ($vals[1] ne "null");
+                    $s = $s." numberType=\"java.lang.".$h_t_j{$t}."\"";
+                    $s = $s." stepSize=\"".$vals[3]."\"";
+                    return $s;
+                    #"initial=\"".$vals[0]."\" maximum=\"".$vals[2]."\" minimum=\"".$vals[1]."\" numberType=\"java.lang.".$h_t_j{$t}."\" stepSize=\"".$vals[3]."\"";
                 } else {
                     return "".$vals[0].", ".$vals[1].", ".$vals[2].", ".$vals[3]."";
                 }
@@ -2048,7 +2075,7 @@ sub createJavaEditorFile {
                     print $out "\n";
                     &addHelp($out,\@sCom);
                     if (exists $h_tabPanel{$sName}) {
-                        print $out  "        ".$initials{$t}."_tabpanel.addTab(\"".$initials{$t."_".$s}."\", ".$sName.");\n\n";
+                        print $out  "        ".$initials{$t}."_tabpanel.addTab(\"".$structPgrm->{$t."_".$s}."\", ".$sName.");\n\n";
                     }
                     $sName = "";
                     @sCom = ();
@@ -2369,10 +2396,6 @@ sub createJavaEditorFile {
                  # Dir box gestion !!
                  
                 if ($str =~ /_Dir[a-z,A-Z]{3,5}$/i) { # Dir/File(s) options
-                    
-                    
-                    print ">>>>>>>>".$str."\n";
-                    
                     
                     my ($ori) = $str =~ /(.*)_Dir[a-z,A-Z]{3,5}$/;
                     my $text = $ori."_Text";
@@ -3201,12 +3224,12 @@ sub createJavaEditorForm {
         } else {
             print $out  "                        <Container class=\"javax.swing.JPanel\" name=\"".$initials{$t}."_Spanel\">\n".
                         "                            <Constraints>\n".
-                        "                                <Constraint layoutClass=\"org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout\" value=\"org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout\$JTabbedPaneConstraintsDescription\">".
-                        "                                    <JTabbedPaneConstraints tabName=\"".$initials{$t}."\">".
-                        "                                    <Property name=\"tabTitle\" type=\"java.lang.String\" value=\"".$initials{$t}."\"/>".
-                        "                                </JTabbedPaneConstraints>".
-                        "                            </Constraint>".
-                        "                            </Constraints>";
+                        "                                <Constraint layoutClass=\"org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout\" value=\"org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout\$JTabbedPaneConstraintsDescription\">\n".
+                        "                                    <JTabbedPaneConstraints tabName=\"".$initials{$t}."\">\n".
+                        "                                    <Property name=\"tabTitle\" type=\"java.lang.String\" value=\"".$structPgrm{$t}."\"/>\n".
+                        "                                </JTabbedPaneConstraints>\n".
+                        "                            </Constraint>\n".
+                        "                            </Constraints>\n";
         }
         print $out  "                            <Layout>\n".
                     "                                <DimensionLayout dim=\"0\">\n".
